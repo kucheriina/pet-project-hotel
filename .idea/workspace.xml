@@ -5,20 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d626c4f6-e23d-4e95-ab8e-bdf01e2a8e0d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myhotel/catalog/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pet-project-hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pet-project-hotel.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myhotel/catalog/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myhotel/booking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myhotel/booking/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myhotel/catalog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myhotel/catalog/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myhotel/catalog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myhotel/catalog/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myhotel/catalog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myhotel/catalog/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myhotel/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/myhotel/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myhotel/myhotel/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myhotel/myhotel/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myhotel/myhotel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myhotel/myhotel/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
