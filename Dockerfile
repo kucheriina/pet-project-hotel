@@ -6,8 +6,10 @@ COPY pyproject.toml poetry.lock ./
 
 RUN pip install --no-cache-dir poetry && \
     poetry config virtualenvs.create false && \
-    poetry install --only main --no-root
+    poetry install --only main --only dev --no-root
 
 COPY . .
+
+ENV PYTHONPATH="/app/myhotel"
 
 CMD ["python", "myhotel/manage.py", "runserver", "0.0.0.0:8000"]
