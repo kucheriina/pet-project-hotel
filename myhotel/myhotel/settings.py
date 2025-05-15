@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import sys
 from pathlib import Path
 import os
 
@@ -89,6 +89,9 @@ DATABASES = {
     }
 }
 
+# Override DB settings for tests
+if 'test' in sys.argv or 'pytest' in sys.argv:
+    DATABASES['default']['NAME'] = os.getenv('POSTGRES_TEST_DB', 'myhotel_test')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
