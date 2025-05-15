@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -26,7 +27,7 @@ class Room(models.Model):
     room_class = models.CharField(max_length=20, choices=ROOM_CLASS_CHOICES)
     bed_type = models.CharField(max_length=10, choices=BED_TYPE_CHOICES)
     description = models.TextField()
-    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
+    price_per_night = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     # def __str__(self):
