@@ -78,7 +78,7 @@ class TestRoomViewSet:
             price_per_night=5000.00, description="VIP номер"
         )
         response = self.client.delete(f"/catalog/{room.id}/delete/")
-        assert response.status_code == 204
+        assert response.status_code == 200
         assert Room.objects.count() == 0
 
     def test_delete_room_not_found(self):
@@ -92,7 +92,8 @@ class TestRoomViewSet:
         Room.objects.create(room_class="standard", bed_type="2", price_per_night=3000, description="Стандарт")
         response = self.client.get("/catalog/list/")
         assert response.status_code == 200
-        assert len(response.data) == 2
+        assert 'results' in response.data
+        assert len(response.data['results']) == 2
 
     @pytest.mark.parametrize("sort_by,order", [
         ("price_per_night", "asc"),
@@ -105,12 +106,14 @@ class TestRoomViewSet:
         Room.objects.create(room_class="standard", bed_type="2", price_per_night=3000, description="Стандарт")
         response = self.client.get(f"/catalog/list/?sort_by={sort_by}&order={order}")
         assert response.status_code == 200
-        assert len(response.data) == 2
+        assert 'results' in response.data
+        rooms = response.data['results']
+        assert len(rooms) == 2
 
         if sort_by == 'price_per_night':
-            values = [Decimal(room['price_per_night']) for room in response.data]
+            values = [Decimal(room['price_per_night']) for room in rooms]
         elif sort_by == 'created_at':
-            values = [isoparse(room['created_at']) for room in response.data]
+            values = [isoparse(room['created_at']) for room in rooms]
         else:
             values = []
 
@@ -120,9 +123,36 @@ class TestRoomViewSet:
     def test_list_rooms_invalid_sort_field(self):
         response = self.client.get("/catalog/list/?sort_by=wrong_field")
         assert response.status_code == 400
-        assert "Неверные параметры сортировки" in response.data["detail"]
+        assert "Неверный параметр сортировки" in response.data["detail"]
 
     def test_list_rooms_invalid_sort_order(self):
         response = self.client.get("/catalog/list/?sort_by=price_per_night&order=sideways")
         assert response.status_code == 400
         assert "Неверный параметр порядка сортировки" in response.data["detail"]
+
+    def test_list_rooms_pagination(self):
+        for i in range(15):
+            Room.objects.create(room_class='economy', bed_type='1', price_per_night=1000 + i, description=f'Room {i}')
+
+        response = self.client.get('/catalog/list/?page=1')
+        assert response.status_code == 200
+        assert 'results' in response.data
+        assert len(response.data['results']) == 10
+        assert response.data['count'] == 15
+        assert response.data['next'] is not None
+        assert response.data['previous'] is None
+
+        response_page_2 = self.client.get("/catalog/list/?page=2")
+        assert response_page_2.status_code == 200
+        assert len(response_page_2.data['results']) == 5
+        assert response_page_2.data['count'] == 15
+        assert response_page_2.data['next'] is None
+        assert response_page_2.data['previous'] is not None
+
+    def test_list_rooms_pagination_invalid_page(self):
+        for i in range(5):
+            Room.objects.create(room_class="economy", bed_type="1", price_per_night=1000 + i, description=f"Room {i}")
+
+        response = self.client.get('/catalog/list/?page=999')
+        assert response.status_code == 404
+        assert 'Invalid page' in str(response.data) or 'Page not found' in str(response.data)
