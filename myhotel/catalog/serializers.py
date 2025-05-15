@@ -5,4 +5,5 @@ from .models import Room
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ['room_class', 'bed_type', 'price_per_night', 'description']
+        fields = ['room_class', 'bed_type', 'price_per_night', 'description', 'created_at']
+        read_only_fields = ['created_at']
