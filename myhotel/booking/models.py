@@ -8,5 +8,8 @@ class Booking(models.Model):
     date_start = models.DateField()
     date_end = models.DateField()
 
+    class Meta:
+        ordering = ['date_start']
+
     def __str__(self):
         return f'Бронь #{self.id} для номера {self.room} с {self.date_start} по {self.date_end}'
