@@ -22,6 +22,8 @@ from rest_framework import permissions
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
+
+from booking.views import BookingViewSet
 from catalog.views import RoomViewSet
 
 schema_view = get_schema_view(
@@ -36,6 +38,7 @@ schema_view = get_schema_view(
 
 router = DefaultRouter()
 router.register(r'catalog', RoomViewSet, basename='room')
+router.register(r'booking', BookingViewSet, basename='booking')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
